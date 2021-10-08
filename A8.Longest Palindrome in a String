@@ -1,0 +1,73 @@
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+class GFG
+{
+    public static void main(String args[])throws IOException
+    {
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine());
+        while(t-- > 0)
+        {
+            String S = read.readLine();
+            
+            Solution ob = new Solution();
+            System.out.println(ob.longestPalin(S));
+        }
+    }
+}
+// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution{
+    static String longestPalin(String S){
+        // code here
+        
+        int start = 0;
+        int maxLength = 1;
+        int low,high;
+        int n = S.length();
+        
+        // if(n == 1){
+        //     return S;
+        // }
+        
+        for(int i=1;i<n;i++){
+            
+            low = i-1;
+            high = i;
+            
+            while(low>=0&&high<n &&S.charAt(low)==S.charAt(high)){
+                --low;
+                ++high;
+            }
+            
+            ++low;
+            --high;
+            
+            if(S.charAt(low) == S.charAt(high) && high-low+1>maxLength){
+                start = low;
+                maxLength = high-low+1;
+            }
+            
+            low = i-1;
+            high = i+1;
+            
+            while(low>=0 && high<n && S.charAt(low) == S.charAt(high)){
+                --low;
+                ++high;
+            }
+            ++low;
+            --high;
+            if(S.charAt(low) == S.charAt(high) && high-low+1>maxLength){
+                start = low;
+                maxLength = high-low+1;
+            }
+        }
+        
+        return S.substring(start,maxLength+start);
+    }
+}
